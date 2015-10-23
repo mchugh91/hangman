@@ -8,19 +8,17 @@ def genRandomWord(n):
     listOFWords = []
     with open("dictionary.txt", "r") as f:
         for word in f:
-            if len(word) < n:
+            if len(word) == n:
                 listOFWords.append(word)
     word = random.choice(listOFWords)
-    print(word)
-    print(listOFWords[0:10])
+
     return word
 
 def printWord(word):
     print(word)
 
 def createCurrentBlank(word):
-    print(len(word))
-    currentBlanks = (len(word)-1) * "_"
+    currentBlanks = (len(word)) * "_"
     return currentBlanks
 
 def printCurrentBlanks(currentBlanks):
@@ -29,8 +27,9 @@ def printCurrentBlanks(currentBlanks):
 
 
 def guessALetter():
-    letter=input("Guess a letter: ")
+    letter = input("Guess a letter: ")
     return letter
+
 
 def goodGuess(letter,word):
     #returns true if letter is in word otherwise return false
@@ -50,7 +49,7 @@ def updateCurrentBlanks(letter,word,currentBlanks):
     return currentBlanks
 
 def printRules():
-    print('The computer will choose a random word. You must guess a letter from that word. If you are right the letter(s) will be'
+    print('The computer will choose a random word. You must guess a letter from that word. If you are right the letter(s) will be '
           'revealed, if not you will lose a life. You have 10 lives.')
 
 def printLives(currentLives):
@@ -64,8 +63,11 @@ def main():
     currentBlanks = createCurrentBlank(word)
     printCurrentBlanks(currentBlanks)
     currentLives = 10
+    listOfLetter = "Used letters: "
     while currentLives > 0 and word != currentBlanks:
         letter = guessALetter()
+        listOfLetter += letter + ","
+        print(listOfLetter)
         lastGuessGood = goodGuess(letter,word)
         if lastGuessGood:
             currentBlanks = updateCurrentBlanks(letter,word,currentBlanks)
