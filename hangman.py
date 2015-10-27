@@ -7,10 +7,13 @@ def genRandomWord(n):
     # word = random.choice(list_of_words)
     listOFWords = []
     with open("dictionary.txt", "r") as f:
-        for word in f:
-            if len(word) == n:
-                listOFWords.append(word)
+        for line in f:
+            for word in line.split():
+                if len(word) == n:
+                    listOFWords.append(word)
     word = random.choice(listOFWords)
+    print(word)
+
 
     return word
 
@@ -66,7 +69,7 @@ def main():
     listOfLetter = "Used letters: "
     while currentLives > 0 and word != currentBlanks:
         letter = guessALetter()
-        listOfLetter += letter + ","
+        listOfLetter += letter + "-"
         print(listOfLetter)
         lastGuessGood = goodGuess(letter,word)
         if lastGuessGood:
@@ -78,4 +81,5 @@ def main():
     if currentLives == 0:
         print("Game Over")
         printWord(word)
+
 main()
